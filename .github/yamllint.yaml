@@ -1,0 +1,17 @@
+---
+extends: default
+
+ignore:
+  /charts/
+
+rules:
+  document-start: disable
+  quoted-strings:
+    quote-type: double
+    required: only-when-needed
+  line-length:
+    level: warning
+    max: 119
+  truthy:
+    # todo: remove 'on' as soon https://bit.ly/3KApDmq is fixed
+    allowed-values: ["true", "false", "on"]

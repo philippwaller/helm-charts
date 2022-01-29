@@ -1,0 +1,68 @@
+name: "Job: Preparation"
+on:
+  workflow_call:
+    outputs:
+      scope:
+        description: Workflow scope
+        value: ${{ jobs.change-detection.outputs.scope }}
+      k8s-versions:
+        description: Supported Kubernetes Versions
+        value: ${{ jobs.k8s-versions.outputs.k8s-versions }}
+
+jobs:
+  change-detection:
+    name: Change Detection
+    runs-on: ubuntu-latest
+    outputs:
+      scope: ${{ steps.scope.outputs.scope }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Change detection
+        uses: dorny/paths-filter@v2
+        id: change-detection
+        with:
+          list-files: json
+          filters: |
+            charts:
+              - 'charts/**'
+            ci:
+              - '.github/**'
+
+      - name: Determine changed charts
+        id: scope
+        run: |
+          if [ ${{steps.change-detection.outputs.ci}} == false ]; then
+            CHARTS=$( \
+              echo '${{steps.change-detection.outputs.charts_files}}' \
+                | jq -r .[] \
+                | awk -F "/" '{ print $1"/"$2 }' \
+                | sort \
+                | uniq \
+                | jq -R -s -c 'split("\n")[:-1]' \
+            )
+          else
+            CHARTS=$(find charts -type d -mindepth 1 -maxdepth 1 | jq -R -s -c 'split("\n")[:-1]')
+          fi
+          echo "::set-output name=scope::$CHARTS"
+          echo "$CHARTS"
+
+  k8s-versions:
+    name: Load Supported K8s Version
+    runs-on: ubuntu-latest
+    outputs:
+      k8s-versions: ${{ steps.k8s-versions.outputs.data }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: fabasoad/yaml-json-xml-converter-action@main
+        name: Parse supported K8s versions
+        id: k8s-versions
+        with:
+          path: .github/k8s-versions.yaml
+          from: yaml
+          to: json

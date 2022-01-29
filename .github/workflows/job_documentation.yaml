@@ -1,0 +1,47 @@
+name: "Job: Documentation"
+on:
+  workflow_call:
+    inputs:
+      scope:
+        required: true
+        type: string
+      commit-changes:
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  update:
+    name: Update Documentation
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        charts: ${{fromJson(inputs.scope)}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+
+      - name: Install
+        run: npm install -g readme-generator-for-helm
+
+      - name: Update documentation files
+        run: readme-generator -v ${{ matrix.charts }}/values.yaml -r ${{ matrix.charts }}/README.md
+
+      - uses: EndBug/add-and-commit@v8
+        if: ${{ inputs.commit-changes }}
+        with:
+          message: "docs(${{ matrix.charts }}): update helm chart documentation"
+          pull: --rebase --autostash
+          author_name: Philipp Waller
+          author_email: 1090452+philippwaller@users.noreply.github.com
+          committer_name: GitHub Actions
+          committer_email: 41898282+github-actions[bot]@users.noreply.github.com

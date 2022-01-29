@@ -1,0 +1,17 @@
+name: "Job: Content Check"
+on:
+  workflow_call:
+
+jobs:
+  pre-commit:
+    name: Pre-Commit Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+
+      - name: Run pre-commit checks
+        uses: pre-commit/action@v2.0.3

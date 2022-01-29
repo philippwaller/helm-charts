@@ -1,0 +1,51 @@
+name: "Job: Litting"
+on:
+  workflow_call:
+    inputs:
+      scope:
+        required: true
+        type: string
+
+jobs:
+  lint:
+    name: Litting
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        charts: ${{fromJson(inputs.scope)}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v2.0
+        with:
+          version: v3.7.2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.2.0
+
+      - name: Build exclude string
+        id: excluded-charts
+        run: |
+          EXCLUDE=$( \
+            find charts -type d -mindepth 1 -maxdepth 1 \
+              | egrep -v '^${{ matrix.charts }}$' \
+              | awk -F "/" '{ print $2 }' \
+              | tr '\n' ',' \
+              | sed 's/,$//g' \
+          )
+          echo "::set-output name=excluded-charts::$EXCLUDE"
+          echo $EXCLUDE
+
+      - name: Check if version bump is required
+        run: ct lint --config .github/ct.yaml --excluded-charts "${{steps.excluded-charts.outputs.excluded-charts}}"
+
+      - name: Lint chart
+        run: ct lint --config .github/ct.yaml --charts ${{ matrix.charts }}
