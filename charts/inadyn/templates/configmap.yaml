@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "inadyn.fullname" . }}-config
+  labels:
+    {{- include "inadyn.labels" . | nindent 4 }}
+data:
+  inadyn.conf: |
+    # inadyn config
+    # ref: https://fossies.org/linux/inadyn/man/inadyn.conf.5
+    {{ .Values.inadynConfig | nindent 4 }}
