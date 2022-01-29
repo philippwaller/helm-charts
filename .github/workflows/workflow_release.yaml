@@ -1,0 +1,11 @@
+name: "Flow: Release"
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Release
+    uses: philippwaller/helm-charts/.github/workflows/job_release.yaml@main

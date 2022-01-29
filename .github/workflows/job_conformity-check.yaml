@@ -1,0 +1,45 @@
+name: "Job: Conformity Check"
+on:
+  workflow_call:
+    inputs:
+      scope:
+        required: true
+        type: string
+      k8s-versions:
+        required: true
+        type: string
+
+jobs:
+  kubeconform:
+    name: Kubeconform
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        k8s: ${{fromJson(inputs.k8s-versions)}}
+        charts: ${{fromJson(inputs.scope)}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v2.0
+        with:
+          version: v3.7.2
+
+      - name: Render helm templates
+        run: helm template test ${{ matrix.charts }} --output-dir build
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: kubeconform
+        uses: docker://ghcr.io/yannh/kubeconform:master
+        with:
+          entrypoint: /kubeconform
+          args: -summary -output json -kubernetes-version ${{ matrix.k8s }} build

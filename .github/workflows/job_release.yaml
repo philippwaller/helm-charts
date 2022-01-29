@@ -1,0 +1,27 @@
+name: "Job: Release"
+on:
+  workflow_call:
+
+jobs:
+  release:
+    name: Release Charts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "Philipp Waller"
+          git config user.email "1090452+philippwaller@users.noreply.github.com"
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.2.1
+        with:
+          config: .github/cr.yaml
+        env:
+          CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_COMMITTER_NAME: GitHub Actions
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com

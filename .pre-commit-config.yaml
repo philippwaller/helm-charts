@@ -1,0 +1,28 @@
+---
+ci:
+  autofix_commit_msg: "fix: resolve pre-commit hooks violations"
+  autofix_prs: true
+  autoupdate_branch: main
+  autoupdate_commit_msg: "ci: update pre-commit hooks"
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+      - id: no-commit-to-branch
+      - id: trailing-whitespace
+
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.26.3
+    hooks:
+      - id: yamllint
+        args: [--config-file, .github/yamllint.yaml, --format, github, --strict]
