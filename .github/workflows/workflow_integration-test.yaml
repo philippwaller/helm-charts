@@ -6,35 +6,35 @@ on:
 jobs:
   pre-commit:
     name: Content Check
-    uses: philippwaller/helm-charts/.github/workflows/job_pre-commit.yaml@main
+    uses: ./.github/workflows/job_pre-commit.yaml
   preparation:
     name: Preparation
     needs: [pre-commit]
-    uses: philippwaller/helm-charts/.github/workflows/job_preparation.yaml@main
+    uses: ./.github/workflows/job_preparation.yaml
   documentation:
     name: Documentation
     needs: [preparation]
-    uses: philippwaller/helm-charts/.github/workflows/job_documentation.yaml@main
+    uses: ./.github/workflows/job_documentation.yaml
     with:
       scope: ${{needs.preparation.outputs.scope}}
       commit-changes: true
   lint:
     name: Lint
     needs: [preparation]
-    uses: philippwaller/helm-charts/.github/workflows/job_lint.yaml@main
+    uses: ./.github/workflows/job_lint.yaml
     with:
       scope: ${{needs.preparation.outputs.scope}}
   kubeconform:
     name: Conformity Check
     needs: [preparation]
-    uses: philippwaller/helm-charts/.github/workflows/job_conformity-check.yaml@main
+    uses: ./.github/workflows/job_conformity-check.yaml
     with:
       scope: ${{needs.preparation.outputs.scope}}
       k8s-versions: ${{needs.preparation.outputs.k8s-versions}}
   test:
     name: Test
     needs: [preparation, lint, kubeconform]
-    uses: philippwaller/helm-charts/.github/workflows/job_test-deployment.yaml@main
+    uses: ./.github/workflows/job_test-deployment.yaml
     with:
       scope: ${{needs.preparation.outputs.scope}}
       k8s-versions: ${{needs.preparation.outputs.k8s-versions}}
