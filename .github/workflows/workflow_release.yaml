@@ -8,4 +8,4 @@ on:
 jobs:
   release:
     name: Release
-    uses: philippwaller/helm-charts/.github/workflows/job_release.yaml@main
+    uses: ./.github/workflows/job_release.yaml
