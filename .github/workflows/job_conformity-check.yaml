@@ -29,7 +29,7 @@ jobs:
           version: v3.7.2
 
       - name: Render helm templates
-        run: helm template test ${{ matrix.charts }} --output-dir build
+        run: helm template test ${{ matrix.charts }} --kube-version ${{ matrix.k8s }} --output-dir build
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
