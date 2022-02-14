@@ -1,0 +1,56 @@
+# Default values for external-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+## @section Common parameters
+##
+
+## @param nameOverride String to partially override common.names.fullname
+nameOverride: ""
+
+## @param fullnameOverride String to fully override common.names.fullname
+fullnameOverride: ""
+
+## @section Service Configuration
+##
+
+service:
+  ## @param service.ip IP addresses of the external service
+  ip: 10.0.0.1
+  ## @param service.targetPort Port of the external service
+  targetPort: 80
+  ## @param service.protocol Protocol of the external service
+  protocol: TCP
+  ## @param service.name Name of the external port
+  name: http
+  ## @param service.port Port of the internal Kubernetes service
+  port: 80
+  ## @param service.type Service type
+  type: ClusterIP
+
+## @section Ingress Configuration
+## ref: https://kubernetes.io/docs/user-guide/ingress/
+##
+
+ingress:
+  ## @param ingress.enabled Enable ingress record generation
+  enabled: true
+  ## @param ingress.className IngressClass that will be be used to implement the Ingress
+  className: ""
+
+  ## @param ingress.annotations [object] Additional annotations for the Ingress resource.
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+
+  ## @param ingress.hosts [object] An array with ingress host objects, under which service should be reachable
+  hosts:
+    - host: myservice.example.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  ## @param ingress.tls [object] An array of TLS configurations
+  tls: []
+  #  - secretName: my-service-example-com-tls
+  #    hosts:
+  #      - myservice.example.com
