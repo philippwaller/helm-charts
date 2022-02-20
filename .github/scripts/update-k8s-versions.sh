@@ -1,9 +1,19 @@
 #!/usr/bin/env bash
 
+filterUnsupportedVersions() {
+  minVer="v1.16.1"
+  while read version; do
+    if [ "$version" != "`echo -e "$version\n$minVer" | sort -V | head -n1`" ] || [ "$version" == "$minVer" ]; then
+      echo "$version"
+    fi
+  done
+}
+
 nodeVersions=$( \
   curl -L -s "https://registry.hub.docker.com/v2/repositories/kindest/node/tags?page_size=1024" \
   | jq -r ".results[].name" \
   | grep -E "^v([0-9]+\.?)+$" \
+  | filterUnsupportedVersions \
   | sort \
   )
 nodeVersionArray=($nodeVersions)

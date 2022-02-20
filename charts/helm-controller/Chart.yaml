@@ -1,0 +1,16 @@
+apiVersion: v2
+name: helm-controller
+description: A simple way to manage helm charts with Custom Resource Definitions in k8s.
+type: application
+version: 1.0.0
+appVersion: v0.11.9
+kubeVersion: ^1.16.0
+sources:
+  - https://github.com/philippwaller/helm-charts/tree/main/charts/helm-controller
+  - https://github.com/k3s-io/helm-controller
+keywords:
+  - helm
+  - helm-controller
+maintainers:
+  - name: philippwaller
+    url: https://git.philippwaller.com
