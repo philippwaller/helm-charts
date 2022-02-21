@@ -6,7 +6,8 @@ A simple way to manage helm charts (v2 and v3) with Custom Resource Definitions 
 ## TL;DR
 
 ```console
-$ helm install helm-controller philippwaller/helm-controller
+helm repo add philippwaller https://charts.philippwaller.com
+helm install helm-controller philippwaller/helm-controller
 ```
 
 

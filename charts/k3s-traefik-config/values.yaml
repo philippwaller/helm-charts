@@ -1,6 +1,5 @@
 # Default values for k3s-traefik-config.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# Ref: https://github.com/philippwaller/helm-charts/tree/main/charts/k3s-traefik-config
 
 ## @section Common parameters
 ##

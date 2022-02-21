@@ -3,6 +3,14 @@
 [Inadyn](https://github.com/troglobit/inadyn) , or In-a-Dyn, is a small and simple Dynamic DNS, DDNS, client with HTTPS support. Commonly available in many GNU/Linux distributions, used in off the shelf routers and Internet gateways to automate the task of keeping your Internet name in sync with your public¹ IP address. It can also be used in installations with redundant (backup) connections to the Internet.
 
 
+## TL;DR
+
+```console
+helm repo add philippwaller https://charts.philippwaller.com
+helm install inadyn philippwaller/inadyn
+```
+
+
 ## Introduction
 
 This chart bootstraps an [Inadyn](https://github.com/troglobit/inadyn) deployment on a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
@@ -10,7 +18,7 @@ This chart bootstraps an [Inadyn](https://github.com/troglobit/inadyn) deploymen
 
 ## Prerequisites
 
-- Kubernetes 1.15+
+- Kubernetes 1.16+
 - Helm 3.1+
 
 

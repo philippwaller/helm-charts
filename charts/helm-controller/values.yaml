@@ -1,5 +1,5 @@
 # Default values for helm-controller.
-# Ref: https://github.com/philippwaller/helm-charts/charts/helm-controller
+# Ref: https://github.com/philippwaller/helm-charts/tree/main/charts/helm-controller
 
 ## @section Common parameters
 ##
