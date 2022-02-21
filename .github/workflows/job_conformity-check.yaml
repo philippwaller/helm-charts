@@ -14,6 +14,7 @@ jobs:
     name: Kubeconform
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         k8s: ${{fromJson(inputs.k8s-versions)}}
         charts: ${{fromJson(inputs.scope)}}
@@ -42,4 +43,4 @@ jobs:
         uses: docker://ghcr.io/yannh/kubeconform:master
         with:
           entrypoint: /kubeconform
-          args: -summary -output json -kubernetes-version ${{ matrix.k8s }} build
+          args: -summary -output json -kubernetes-version ${{ matrix.k8s }} -ignore-missing-schemas build
