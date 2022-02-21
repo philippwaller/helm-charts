@@ -6,7 +6,8 @@ This Helm Chart allows to override the default [Traefik](https://doc.traefik.io/
 ## TL;DR
 
 ```console
-$ helm install custom philippwaller/k3s-traefik-config -n kube-system
+helm repo add philippwaller https://charts.philippwaller.com
+helm install custom philippwaller/k3s-traefik-config -n kube-system
 ```
 
 ## Introduction
@@ -15,7 +16,7 @@ This charts deploys a HelmChartConfig to overwrite the default [Traefik](https:/
 
 ## Prerequisites
 
-- Kubernetes 1.15+
+- Kubernetes 1.16+
 - Helm 3.1+
 
 

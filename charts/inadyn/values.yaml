@@ -1,5 +1,5 @@
-## Default values for the inadyn helm chart
-## Ref: https://github.com/philippwaller/helm-charts/charts/inadyn
+# Default values for the inadyn helm chart
+# Ref: https://github.com/philippwaller/helm-charts/tree/main/charts/inadyn
 
 ## @section Common parameters
 ##

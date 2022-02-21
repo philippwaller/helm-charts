@@ -2,10 +2,12 @@
 
 This Helm Chart allows services that operate outside the Kubernetes cluster to be accessible via the ingress controller.
 
+
 ## TL;DR
 
 ```console
-$ helm install my-service philippwaller/external-service
+helm repo add philippwaller https://charts.philippwaller.com
+helm install my-service philippwaller/external-service
 ```
 
 ## Introduction
@@ -15,7 +17,7 @@ This chart deploys an Endpoint, Service and Ingress configuration on a [Kubernet
 
 ## Prerequisites
 
-- Kubernetes 1.15+
+- Kubernetes 1.16+
 - Helm 3.1+
 
 
@@ -49,7 +51,7 @@ This chart deploys an Endpoint, Service and Ingress configuration on a [Kubernet
 | `ingress.className`   | IngressClass that will be be used to implement the Ingress                  | `""`   |
 | `ingress.annotations` | Additional annotations for the Ingress resource.                            | `{}`   |
 | `ingress.hosts`       | An array with ingress host objects, under which service should be reachable | `{}`   |
-| `ingress.tls`         | An array of TLS configurations                                              | `{}`   |
+| `ingress.tls`         | An array of TLS configurations                                              | `[]`   |
 
 
 ## Support this project

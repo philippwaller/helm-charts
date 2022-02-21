@@ -1,6 +1,6 @@
 # Default values for external-service.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# Ref: https://github.com/philippwaller/helm-charts/tree/main/charts/external-service
+
 
 ## @section Common parameters
 ##
@@ -49,7 +49,7 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
-  ## @param ingress.tls [object] An array of TLS configurations
+  ## @param ingress.tls [array] An array of TLS configurations
   tls: []
   #  - secretName: my-service-example-com-tls
   #    hosts:
