@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "k3s-traefik-config.fullname" . }}
+  labels:
+    {{- include "k3s-traefik-config.labels" . | nindent 4 }}
+data:
+  traefik-config.yaml: |
+    {{ tpl (.Files.Get "helm-chart-config.yaml") . | nindent 4 }}
