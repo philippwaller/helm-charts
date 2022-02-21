@@ -21,6 +21,28 @@ entries:
     urls:
     - https://github.com/philippwaller/helm-charts/releases/download/external-service-1.0.0/external-service-1.0.0.tgz
     version: 1.0.0
+  helm-controller:
+  - apiVersion: v2
+    appVersion: v0.11.9
+    created: "2022-02-21T07:27:28.824825714Z"
+    description: A simple way to manage helm charts with Custom Resource Definitions
+      in k8s.
+    digest: bc39cc68c6c033d2b724c5347dffbc0d4b8756ab89524c17cd6cd0573205ecf2
+    keywords:
+    - helm
+    - helm-controller
+    kubeVersion: ^1.16.0
+    maintainers:
+    - name: philippwaller
+      url: https://git.philippwaller.com
+    name: helm-controller
+    sources:
+    - https://github.com/philippwaller/helm-charts/tree/main/charts/helm-controller
+    - https://github.com/k3s-io/helm-controller
+    type: application
+    urls:
+    - https://github.com/philippwaller/helm-charts/releases/download/helm-controller-1.0.0/helm-controller-1.0.0.tgz
+    version: 1.0.0
   inadyn:
   - apiVersion: v2
     appVersion: v2.9.1
@@ -45,4 +67,4 @@ entries:
     urls:
     - https://github.com/philippwaller/helm-charts/releases/download/inadyn-1.0.0/inadyn-1.0.0.tgz
     version: 1.0.0
-generated: "2022-02-14T20:08:25.913827219Z"
+generated: "2022-02-21T07:27:28.824830514Z"
