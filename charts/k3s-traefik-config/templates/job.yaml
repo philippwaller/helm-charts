@@ -1,0 +1,62 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "k3s-traefik-config.fullname" . }}
+  labels:
+    {{- include "k3s-traefik-config.labels" . | nindent 4 }}
+spec:
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "k3s-traefik-config.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "k3s-traefik-config.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+
+      volumes:
+        - name: task-pv-storage
+          persistentVolumeClaim:
+            claimName: {{ include "k3s-traefik-config.fullname" . }}
+        - name: config
+          configMap:
+            name: {{ include "k3s-traefik-config.fullname" . }}
+
+
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["cp",  "/opt/traefik/traefik-config.yaml", "/mnt/node/traefik/traefik-config.yaml"]
+          volumeMounts:
+            - name: config
+              mountPath: /opt/traefik/traefik-config.yaml
+              subPath: traefik-config.yaml
+            - mountPath: /mnt/node/traefik
+              name: task-pv-storage
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      restartPolicy: Never
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  backoffLimit: 4

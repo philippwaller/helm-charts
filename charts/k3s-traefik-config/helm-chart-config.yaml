@@ -1,0 +1,9 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  labels:
+    {{- include "k3s-traefik-config.labels" . | nindent 4 }}
+spec:
+  valuesContent: |
+  {{ .Values.traefikConfig | toYaml | nindent 4 }}

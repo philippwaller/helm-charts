@@ -1,0 +1,1 @@
+{{ tpl (.Files.Get "helm-chart-config.yaml") . }}

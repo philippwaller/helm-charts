@@ -41,5 +41,11 @@ jobs:
         with:
           node_image: kindest/node:v${{ matrix.k8s }}
 
+      - name: Deploy helm controller
+        run: |
+          helm repo add philippwaller https://charts.philippwaller.com
+          helm install helm-controller philippwaller/helm-controller -n kube-system
+        if: matrix.charts != 'charts/helm-controller'
+
       - name: Run chart-testing (install)
         run: ct install --config .github/ct.yaml --charts ${{ matrix.charts }}
