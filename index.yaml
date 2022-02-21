@@ -67,4 +67,25 @@ entries:
     urls:
     - https://github.com/philippwaller/helm-charts/releases/download/inadyn-1.0.0/inadyn-1.0.0.tgz
     version: 1.0.0
-generated: "2022-02-21T07:27:28.824830514Z"
+  k3s-traefik-config:
+  - apiVersion: v2
+    appVersion: v1.0.0
+    created: "2022-02-21T10:44:33.347289747Z"
+    description: This Helm Chart allows to persistently overwrite the default Traefik
+      configuration of a K3s cluster.
+    digest: ddfed13e0f068f60e3c6bbcef6b9e0ad939975d90bebd5a02be3d3a6e6fc068c
+    keywords:
+    - service
+    - external-service
+    kubeVersion: ^1.15.0
+    maintainers:
+    - name: philippwaller
+      url: https://git.philippwaller.com
+    name: k3s-traefik-config
+    sources:
+    - https://github.com/philippwaller/helm-charts/tree/main/charts/k3s-traefik-config
+    type: application
+    urls:
+    - https://github.com/philippwaller/helm-charts/releases/download/k3s-traefik-config-1.0.0/k3s-traefik-config-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-02-21T10:44:33.347294947Z"
