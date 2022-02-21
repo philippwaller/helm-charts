@@ -2,6 +2,26 @@ apiVersion: v1
 entries:
   external-service:
   - apiVersion: v2
+    appVersion: v1.0.1
+    created: "2022-02-21T13:14:47.798039995Z"
+    description: This Helm Chart allows services that operate outside the Kubernetes
+      cluster to be accessible via the ingress controller.
+    digest: 9c5c83b3e50ac232e8d8ac72631a9476f3e3973f0d7ace05f3867a272451d7ce
+    keywords:
+    - service
+    - external-service
+    kubeVersion: ^1.16.0
+    maintainers:
+    - name: philippwaller
+      url: https://git.philippwaller.com
+    name: external-service
+    sources:
+    - https://github.com/philippwaller/helm-charts/tree/main/charts/external-service
+    type: application
+    urls:
+    - https://github.com/philippwaller/helm-charts/releases/download/external-service-1.0.1/external-service-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     appVersion: v1.0.0
     created: "2022-02-14T20:08:25.913821919Z"
     description: This Helm Chart allows services that operate outside the Kubernetes
@@ -24,6 +44,27 @@ entries:
   helm-controller:
   - apiVersion: v2
     appVersion: v0.11.9
+    created: "2022-02-21T13:14:47.981347382Z"
+    description: A simple way to manage helm charts with Custom Resource Definitions
+      in k8s.
+    digest: 3af0735d9e3e31614f64471eb211280ef707bd8ea601bc4a0de1f17560b05da9
+    keywords:
+    - helm
+    - helm-controller
+    kubeVersion: ^1.16.0
+    maintainers:
+    - name: philippwaller
+      url: https://git.philippwaller.com
+    name: helm-controller
+    sources:
+    - https://github.com/philippwaller/helm-charts/tree/main/charts/helm-controller
+    - https://github.com/k3s-io/helm-controller
+    type: application
+    urls:
+    - https://github.com/philippwaller/helm-charts/releases/download/helm-controller-1.0.1/helm-controller-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: v0.11.9
     created: "2022-02-21T07:27:28.824825714Z"
     description: A simple way to manage helm charts with Custom Resource Definitions
       in k8s.
@@ -44,6 +85,29 @@ entries:
     - https://github.com/philippwaller/helm-charts/releases/download/helm-controller-1.0.0/helm-controller-1.0.0.tgz
     version: 1.0.0
   inadyn:
+  - apiVersion: v2
+    appVersion: v2.9.1
+    created: "2022-02-21T13:14:48.153559836Z"
+    description: A Helm chart for inadyn, a small and simple Dynamic DNS client with
+      HTTPS support
+    digest: bff6174f9c83f0ef163f73b522d64549236f5522f6447f5fb714d591bb8c01fa
+    keywords:
+    - inadyn
+    - dyndns
+    - ddns
+    - dns
+    kubeVersion: ^1.16.0
+    maintainers:
+    - name: philippwaller
+      url: https://git.philippwaller.com
+    name: inadyn
+    sources:
+    - https://github.com/philippwaller/helm-charts/tree/main/charts/inadyn
+    - https://github.com/troglobit/inadyn
+    type: application
+    urls:
+    - https://github.com/philippwaller/helm-charts/releases/download/inadyn-1.0.1/inadyn-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v2
     appVersion: v2.9.1
     created: "2022-01-29T13:36:55.391520046Z"
@@ -69,6 +133,26 @@ entries:
     version: 1.0.0
   k3s-traefik-config:
   - apiVersion: v2
+    appVersion: v1.0.1
+    created: "2022-02-21T13:14:48.32230671Z"
+    description: This Helm Chart allows to persistently overwrite the default Traefik
+      configuration of a K3s cluster.
+    digest: 7c10d3cf171ff1ee5426a85b06c8da098878a8f1b8db9e15aa53efaa4e75f2be
+    keywords:
+    - service
+    - external-service
+    kubeVersion: ^1.16.0
+    maintainers:
+    - name: philippwaller
+      url: https://git.philippwaller.com
+    name: k3s-traefik-config
+    sources:
+    - https://github.com/philippwaller/helm-charts/tree/main/charts/k3s-traefik-config
+    type: application
+    urls:
+    - https://github.com/philippwaller/helm-charts/releases/download/k3s-traefik-config-1.0.1/k3s-traefik-config-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     appVersion: v1.0.0
     created: "2022-02-21T10:44:33.347289747Z"
     description: This Helm Chart allows to persistently overwrite the default Traefik
@@ -88,4 +172,4 @@ entries:
     urls:
     - https://github.com/philippwaller/helm-charts/releases/download/k3s-traefik-config-1.0.0/k3s-traefik-config-1.0.0.tgz
     version: 1.0.0
-generated: "2022-02-21T10:44:33.347294947Z"
+generated: "2022-02-21T13:14:48.32232041Z"
