@@ -18,7 +18,7 @@ This chart bootstraps an [Inadyn](https://github.com/troglobit/inadyn) deploymen
 
 ## Prerequisites
 
-- Kubernetes 1.16+
+- Kubernetes 1.15+
 - Helm 3.1+
 
 

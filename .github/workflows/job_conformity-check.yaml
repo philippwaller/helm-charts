@@ -2,10 +2,7 @@ name: "Job: Conformity Check"
 on:
   workflow_call:
     inputs:
-      scope:
-        required: true
-        type: string
-      k8s-versions:
+      configuration:
         required: true
         type: string
 
@@ -13,11 +10,11 @@ jobs:
   kubeconform:
     name: Kubeconform
     runs-on: ubuntu-latest
+    if: toJson(inputs.configuration.matrix) != '[]'
     strategy:
       fail-fast: false
       matrix:
-        k8s: ${{fromJson(inputs.k8s-versions)}}
-        charts: ${{fromJson(inputs.scope)}}
+        chart: ${{ fromJson(inputs.configuration).matrix }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -30,7 +27,10 @@ jobs:
           version: v3.7.2
 
       - name: Render helm templates
-        run: helm template test ${{ matrix.charts }} --kube-version ${{ matrix.k8s }} --output-dir build
+        run: |
+          helm template test ${{ matrix.chart.path }} \
+            --kube-version ${{ matrix.chart.version }} \
+            --output-dir build
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
@@ -43,4 +43,6 @@ jobs:
         uses: docker://ghcr.io/yannh/kubeconform:master
         with:
           entrypoint: /kubeconform
-          args: -summary -output json -kubernetes-version ${{ matrix.k8s }} -ignore-missing-schemas build
+          args: >-
+            -summary -output json -kubernetes-version ${{ matrix.chart.version }}
+            -ignore-missing-schemas build

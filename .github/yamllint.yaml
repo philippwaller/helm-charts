@@ -11,7 +11,7 @@ rules:
     required: only-when-needed
   line-length:
     level: warning
-    max: 119
+    max: 110
   truthy:
-    # todo: remove 'on' as soon https://bit.ly/3KApDmq is fixed
-    allowed-values: ["true", "false", "on"]
+    allowed-values: ["true", "false"]
+    check-keys: false

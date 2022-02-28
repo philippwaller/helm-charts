@@ -2,7 +2,7 @@ name: "Job: Litting"
 on:
   workflow_call:
     inputs:
-      scope:
+      configuration:
         required: true
         type: string
 
@@ -10,10 +10,11 @@ jobs:
   lint:
     name: Litting
     runs-on: ubuntu-latest
+    if: toJson(inputs.configuration.matrix) != '[]'
     strategy:
       fail-fast: false
       matrix:
-        charts: ${{fromJson(inputs.scope)}}
+        chart: ${{ fromJson(inputs.configuration).matrix }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -25,28 +26,26 @@ jobs:
         with:
           version: v3.7.2
 
-      - uses: actions/setup-python@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
           python-version: 3.7
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.2.0
 
-      - name: Build exclude string
+      - name: Generate exclude string
         id: excluded-charts
         run: |
-          EXCLUDE=$( \
-            find charts -type d -mindepth 1 -maxdepth 1 \
-              | egrep -v '^${{ matrix.charts }}$' \
-              | awk -F "/" '{ print $2 }' \
-              | tr '\n' ',' \
-              | sed 's/,$//g' \
-          )
-          echo "::set-output name=excluded-charts::$EXCLUDE"
-          echo $EXCLUDE
+          exclude=$(./.github/scripts/generate-chart-exclude-string.sh "${{ matrix.chart.path }}")
+          echo "::set-output name=excluded-charts::$exclude"
+          echo $exclude
 
       - name: Check if version bump is required
-        run: ct lint --config .github/ct.yaml --excluded-charts "${{steps.excluded-charts.outputs.excluded-charts}}"
+        run: |
+          ct lint \
+            --config .github/ct.yaml \
+            --excluded-charts "${{ steps.excluded-charts.outputs.excluded-charts }}"
 
       - name: Lint chart
-        run: ct lint --config .github/ct.yaml --charts ${{ matrix.charts }}
+        run: ct lint --config .github/ct.yaml --charts "${{ matrix.chart.path }}"

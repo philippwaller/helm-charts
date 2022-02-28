@@ -12,18 +12,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install yq - portable yaml processor
+        uses: mikefarah/yq@v4.20.2
+
       - name: Execute update script
-        run: ./.github/scripts/update-k8s-versions.sh
+        run: ./.github/scripts/update-supported-k8s-versions.sh
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           branch: build/update-supported-k8s-versions
-          title: "build: update list of supported Kubernetes versions"
+          title: "build: update list of supported kubernetes versions"
           body: Update the list of supported Kubernetes versions.
           author: Philipp Waller <1090452+philippwaller@users.noreply.github.com>
           committer: GitHub Actions <41898282+github-actions[bot]@users.noreply.github.com>
-          commit-message: "build: update list of supported Kubernetes versions"
+          commit-message: "build: update list of supported kubernetes versions"
           assignees: philippwaller
           delete-branch: true
           base: main

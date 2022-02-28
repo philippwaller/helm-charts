@@ -2,10 +2,7 @@ name: "Job: Test"
 on:
   workflow_call:
     inputs:
-      scope:
-        required: true
-        type: string
-      k8s-versions:
+      configuration:
         required: true
         type: string
 
@@ -13,11 +10,11 @@ jobs:
   test-deployment:
     name: Test Deployment
     runs-on: ubuntu-latest
+    if: toJson(inputs.configuration.matrix) != '[]'
     strategy:
       fail-fast: false
       matrix:
-        k8s: ${{fromJson(inputs.k8s-versions)}}
-        charts: ${{fromJson(inputs.scope)}}
+        chart: ${{ fromJson(inputs.configuration).matrix }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -29,23 +26,24 @@ jobs:
         with:
           version: v3.7.2
 
-      - uses: actions/setup-python@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
           python-version: 3.7
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.2.0
 
-      - name: Create kind ${{ matrix.k8s }} cluster
+      - name: Create kind ${{ matrix.chart.version }} cluster
         uses: helm/kind-action@v1.2.0
         with:
-          node_image: kindest/node:v${{ matrix.k8s }}
+          node_image: kindest/node:v${{ matrix.chart.version }}
 
-      - name: Deploy helm controller
+      - name: Install custom resource definition
         run: |
-          helm repo add philippwaller https://charts.philippwaller.com
-          helm install helm-controller philippwaller/helm-controller -n kube-system
-        if: matrix.charts != 'charts/helm-controller'
+          .github/scripts/install-custom-resource-definitions.sh \
+            '${{ matrix.chart.sourceIndex }}' \
+            '${{ inputs.configuration }}'
 
       - name: Run chart-testing (install)
-        run: ct install --config .github/ct.yaml --charts ${{ matrix.charts }}
+        run: ct install --config .github/ct.yaml --charts ${{ matrix.chart.path }}
