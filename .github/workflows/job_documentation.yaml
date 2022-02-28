@@ -2,10 +2,10 @@ name: "Job: Documentation"
 on:
   workflow_call:
     inputs:
-      scope:
+      configuration:
         required: true
         type: string
-      commit-changes:
+      commitChanges:
         required: false
         type: boolean
         default: false
@@ -18,7 +18,7 @@ jobs:
       max-parallel: 1
       fail-fast: false
       matrix:
-        charts: ${{fromJson(inputs.scope)}}
+        chart: ${{ fromJson(inputs.configuration).charts }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -27,7 +27,8 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - uses: actions/setup-node@v2
+      - name: Set up node
+        uses: actions/setup-node@v2
         with:
           node-version: 12
 
@@ -35,12 +36,16 @@ jobs:
         run: npm install -g readme-generator-for-helm
 
       - name: Update documentation files
-        run: readme-generator -v ${{ matrix.charts }}/values.yaml -r ${{ matrix.charts }}/README.md
+        run: |
+          readme-generator \
+            -v ${{ matrix.chart.path }}/values.yaml \
+            -r ${{ matrix.chart.path }}/README.md
 
-      - uses: EndBug/add-and-commit@v8
-        if: ${{ inputs.commit-changes }}
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v8
+        if: ${{ inputs.commitChanges }}
         with:
-          message: "docs(${{ matrix.charts }}): update helm chart documentation"
+          message: "docs(${{ matrix.chart.name }}): update helm chart documentation"
           pull: --rebase --autostash
           author_name: Philipp Waller
           author_email: 1090452+philippwaller@users.noreply.github.com

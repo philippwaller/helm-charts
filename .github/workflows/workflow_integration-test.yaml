@@ -2,6 +2,10 @@ name: "Flow: Integration Test"
 on:
   pull_request:
   workflow_dispatch:
+  push:
+    branches-ignore:
+      - main
+      - repository
 
 jobs:
   pre-commit:
@@ -16,25 +20,23 @@ jobs:
     needs: [preparation]
     uses: ./.github/workflows/job_documentation.yaml
     with:
-      scope: ${{needs.preparation.outputs.scope}}
-      commit-changes: true
+      configuration: ${{ needs.preparation.outputs.configuration }}
+      commitChanges: ${{ (github.event_name == 'pull_request') }}
   lint:
     name: Lint
     needs: [preparation]
     uses: ./.github/workflows/job_lint.yaml
     with:
-      scope: ${{needs.preparation.outputs.scope}}
+      configuration: ${{ needs.preparation.outputs.configuration }}
   kubeconform:
     name: Conformity Check
     needs: [preparation]
     uses: ./.github/workflows/job_conformity-check.yaml
     with:
-      scope: ${{needs.preparation.outputs.scope}}
-      k8s-versions: ${{needs.preparation.outputs.k8s-versions}}
+      configuration: ${{ needs.preparation.outputs.configuration }}
   test:
     name: Test
     needs: [preparation, lint, kubeconform]
     uses: ./.github/workflows/job_test-deployment.yaml
     with:
-      scope: ${{needs.preparation.outputs.scope}}
-      k8s-versions: ${{needs.preparation.outputs.k8s-versions}}
+      configuration: ${{ needs.preparation.outputs.configuration }}

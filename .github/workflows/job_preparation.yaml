@@ -2,19 +2,16 @@ name: "Job: Preparation"
 on:
   workflow_call:
     outputs:
-      scope:
-        description: Workflow scope
-        value: ${{ jobs.change-detection.outputs.scope }}
-      k8s-versions:
-        description: Supported Kubernetes Versions
-        value: ${{ jobs.k8s-versions.outputs.k8s-versions }}
+      configuration:
+        description: CI configuration
+        value: ${{ jobs.create-configuration.outputs.configuration }}
 
 jobs:
-  change-detection:
-    name: Change Detection
+  create-configuration:
+    name: Create Configuration
     runs-on: ubuntu-latest
     outputs:
-      scope: ${{ steps.scope.outputs.scope }}
+      configuration: ${{ steps.configuration.outputs.config }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -32,37 +29,16 @@ jobs:
             ci:
               - '.github/**'
 
-      - name: Determine changed charts
-        id: scope
+      - name: Create configuration
+        id: configuration
         run: |
-          if [ ${{steps.change-detection.outputs.ci}} == false ]; then
-            CHARTS=$( \
-              echo '${{steps.change-detection.outputs.charts_files}}' \
-                | jq -r .[] \
-                | awk -F "/" '{ print $1"/"$2 }' \
-                | sort \
-                | uniq \
-                | jq -R -s -c 'split("\n")[:-1]' \
-            )
-          else
-            CHARTS=$(find charts -type d -mindepth 1 -maxdepth 1 | jq -R -s -c 'split("\n")[:-1]')
-          fi
-          echo "::set-output name=scope::$CHARTS"
-          echo "$CHARTS"
-
-  k8s-versions:
-    name: Load Supported K8s Version
-    runs-on: ubuntu-latest
-    outputs:
-      k8s-versions: ${{ steps.k8s-versions.outputs.data }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - uses: fabasoad/yaml-json-xml-converter-action@main
-        name: Parse supported K8s versions
-        id: k8s-versions
-        with:
-          path: .github/k8s-versions.yaml
-          from: yaml
-          to: json
+          echo "Chart files changed?: ${{ steps.change-detection.outputs.charts }}"
+          echo "Changed charts files: ${{ steps.change-detection.outputs.charts_files }}"
+          echo "CI files changed?: ${{ steps.change-detection.outputs.ci }}"
+          echo "Changed CI files: ${{ steps.change-detection.outputs.ci_files }}"
+          output=$(./.github/scripts/generate-config.sh \
+            "${{ steps.change-detection.outputs.ci }}" \
+            "${{ steps.change-detection.outputs.charts_files }}" \
+          )
+          echo "::set-output name=config::$output"
+          echo $output
