@@ -6,6 +6,9 @@ metadata:
     {{- include "external-service.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
+  {{- if eq  (lower .Values.service.type) "externalname" }}
+  externalName: {{ .Values.service.externalName }}
+  {{- end }}
   ports:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
