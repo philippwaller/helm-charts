@@ -27,6 +27,9 @@ service:
   port: 80
   ## @param service.type Service type
   type: ClusterIP
+  ## @param service.externalName Target for ExternalName type service
+  externalName: ""
+
 
 ## @section Ingress Configuration
 ## ref: https://kubernetes.io/docs/user-guide/ingress/
