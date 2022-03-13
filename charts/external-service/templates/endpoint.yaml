@@ -1,3 +1,4 @@
+{{- if ne  (lower .Values.service.type) "externalname" }}
 apiVersion: v1
 kind: Endpoints
 metadata:
@@ -11,3 +12,4 @@ subsets:
       - name: {{ .Values.service.name }}
         port: {{ .Values.service.targetPort }}
         protocol: {{ .Values.service.protocol }}
+{{- end }}

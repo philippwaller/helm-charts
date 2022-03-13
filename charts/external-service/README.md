@@ -33,14 +33,15 @@ This chart deploys an Endpoint, Service and Ingress configuration on a [Kubernet
 
 ### Service Configuration
 
-| Name                 | Description                             | Value       |
-| -------------------- | --------------------------------------- | ----------- |
-| `service.ip`         | IP addresses of the external service    | `10.0.0.1`  |
-| `service.targetPort` | Port of the external service            | `80`        |
-| `service.protocol`   | Protocol of the external service        | `TCP`       |
-| `service.name`       | Name of the external port               | `http`      |
-| `service.port`       | Port of the internal Kubernetes service | `80`        |
-| `service.type`       | Service type                            | `ClusterIP` |
+| Name                   | Description                             | Value       |
+| ---------------------- | --------------------------------------- | ----------- |
+| `service.ip`           | IP addresses of the external service    | `10.0.0.1`  |
+| `service.targetPort`   | Port of the external service            | `80`        |
+| `service.protocol`     | Protocol of the external service        | `TCP`       |
+| `service.name`         | Name of the external port               | `http`      |
+| `service.port`         | Port of the internal Kubernetes service | `80`        |
+| `service.type`         | Service type                            | `ClusterIP` |
+| `service.externalName` | Target for ExternalName type service    | `""`        |
 
 
 ### Ingress Configuration
