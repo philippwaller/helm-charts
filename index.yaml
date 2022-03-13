@@ -2,6 +2,26 @@ apiVersion: v1
 entries:
   external-service:
   - apiVersion: v2
+    appVersion: v1.0.4
+    created: "2022-03-13T20:21:22.447074618Z"
+    description: This Helm Chart allows services that operate outside the Kubernetes
+      cluster to be accessible via the ingress controller.
+    digest: 13d7a2bd2d0539dac7c43fa91ab02bd99303f3a0eed5b196e499e40b3efe2eb4
+    keywords:
+    - service
+    - external-service
+    kubeVersion: ^1.15.0
+    maintainers:
+    - name: philippwaller
+      url: https://git.philippwaller.com
+    name: external-service
+    sources:
+    - https://github.com/philippwaller/helm-charts/tree/main/charts/external-service
+    type: application
+    urls:
+    - https://github.com/philippwaller/helm-charts/releases/download/external-service-1.0.4/external-service-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
     appVersion: v1.0.3
     created: "2022-03-13T00:25:30.282552887Z"
     description: This Helm Chart allows services that operate outside the Kubernetes
@@ -276,4 +296,4 @@ entries:
     urls:
     - https://github.com/philippwaller/helm-charts/releases/download/k3s-traefik-config-1.0.0/k3s-traefik-config-1.0.0.tgz
     version: 1.0.0
-generated: "2022-03-13T00:25:30.282781149Z"
+generated: "2022-03-13T20:21:22.447109818Z"
