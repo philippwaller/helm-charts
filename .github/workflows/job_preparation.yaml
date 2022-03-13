@@ -37,8 +37,8 @@ jobs:
           echo "CI files changed?: ${{ steps.change-detection.outputs.ci }}"
           echo "Changed CI files: ${{ steps.change-detection.outputs.ci_files }}"
           output=$(./.github/scripts/generate-config.sh \
-            "${{ steps.change-detection.outputs.ci }}" \
-            "${{ steps.change-detection.outputs.charts_files }}" \
+            '${{ steps.change-detection.outputs.ci }}' \
+            '${{ steps.change-detection.outputs.charts_files }}' \
           )
           echo "::set-output name=config::$output"
           echo $output
