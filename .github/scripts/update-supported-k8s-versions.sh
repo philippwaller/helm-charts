@@ -71,7 +71,8 @@ log "\navailable schema versions [${#schemaVersions[@]}]:\n${schemaVersions[*]}"
 availableVersions=($(getVersions "${nodeVersions[*]}" "${schemaVersions[*]}"))
 log "\navailable versions (intersection)[${#availableVersions[@]}]:\n${availableVersions[*]}\n\n"
 
-for dir in ../../charts/*/; do
+projectRootPath=$(git rev-parse --show-toplevel)
+for dir in "$projectRootPath"/charts/*/; do
     dirname=$(basename "$(dirname "$dir")")/$(basename "$dir")
     printf "update versions for chart %s\n" "$dirname"
     minK8sVersion=$(readMinK8sVersion "$dir")
