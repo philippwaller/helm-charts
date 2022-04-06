@@ -296,4 +296,26 @@ entries:
     urls:
     - https://github.com/philippwaller/helm-charts/releases/download/k3s-traefik-config-1.0.0/k3s-traefik-config-1.0.0.tgz
     version: 1.0.0
-generated: "2022-03-13T20:21:22.447109818Z"
+  whoami:
+  - apiVersion: v2
+    appVersion: v1.8.0
+    created: "2022-04-06T07:11:00.587845584Z"
+    description: Tiny Go webserver that prints os information and HTTP request to
+      output
+    digest: 31529b71aa45fccc49b3ea88e09fde263080edcc2ca0c516244378bcd7ba669d
+    keywords:
+    - whoami
+    kubeVersion: ^1.15.0
+    maintainers:
+    - name: philippwaller
+      url: https://git.philippwaller.com
+    name: whoami
+    sources:
+    - https://github.com/philippwaller/helm-charts/tree/main/charts/whoami
+    - https://github.com/traefik/whoami
+    - https://hub.docker.com/r/traefik/whoami
+    type: application
+    urls:
+    - https://github.com/philippwaller/helm-charts/releases/download/whoami-1.0.0/whoami-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-04-06T07:11:00.588089388Z"
