@@ -1,0 +1,16 @@
+apiVersion: v2
+name: whoami
+description: Tiny Go webserver that prints os information and HTTP request to output
+type: application
+version: 1.0.0
+kubeVersion: ^1.15.0
+appVersion: v1.8.0
+sources:
+  - https://github.com/philippwaller/helm-charts/tree/main/charts/whoami
+  - https://github.com/traefik/whoami
+  - https://hub.docker.com/r/traefik/whoami
+keywords:
+  - whoami
+maintainers:
+  - name: philippwaller
+    url: https://git.philippwaller.com

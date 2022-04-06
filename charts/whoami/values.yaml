@@ -1,0 +1,115 @@
+# Default values for whoami helm chart
+# Ref: https://github.com/philippwaller/helm-charts/tree/main/charts/whoami
+
+## @section Common parameters
+##
+
+## @param nameOverride String to partially override common.names.fullname
+nameOverride: whoami
+
+## @param fullnameOverride String to fully override common.names.fullname
+fullnameOverride: ""
+
+## @section Docker Image
+##
+
+## @param image.repository whoami image repository
+## @param image.pullPolicy image pull policy
+## @param image.tag Overrides the image tag whose default is the chart appVersion.
+image:
+  repository: traefik/whoami
+  pullPolicy: IfNotPresent
+  tag: ""
+
+## @param imagePullSecrets If defined, uses a Secret to pull an image from a private Docker registry or repository
+imagePullSecrets: []
+
+## @section Container Configuration
+##
+
+## @param replicaCount The number of pods to run
+replicaCount: 1
+
+autoscaling:
+  ## @param autoscaling.enabled Enable replica autoscaling depending on CPU
+  enabled: false
+  ## @param autoscaling.minReplicas Minimum number of replicas
+  minReplicas: 1
+  ## @param autoscaling.maxReplicas Maximum number of replicas
+  maxReplicas: 100
+  ## @param autoscaling.targetCPUUtilizationPercentage CPU utilization threshold
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+## @param podAnnotations Annotations to be added to the pod
+podAnnotations: {}
+
+## @param podSecurityContext Pod-level security context
+podSecurityContext: {}
+# fsGroup: 2000
+
+## @param securityContext Security context
+securityContext: {}
+  ## capabilities:
+  ##   drop:
+  ##   - ALL
+## readOnlyRootFilesystem: true
+## runAsNonRoot: true
+## runAsUser: 1000
+
+## @param resources Resource and requests limits
+# Ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+resources: {}
+
+## @param nodeSelector Node labels for pod assignment
+## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+nodeSelector: {}
+
+## @param tolerations Tolerations for pod assignment
+## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+## @param affinity Affinity for pod assignment
+## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+affinity: {}
+
+## @section Service Account
+##
+
+## @param serviceAccount.create Specifies whether a service account should be created
+## @param serviceAccount.annotations Annotations to add to the service account
+## @param serviceAccount.name The name of the service account to use.
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+## @section Service Configuration
+##
+service:
+  ## @param service.type Service type
+  type: ClusterIP
+  ## @param service.port Port of the internal Kubernetes service
+  port: 80
+
+ingress:
+  ## @param ingress.enabled Enable ingress record generation
+  enabled: false
+  ## @param ingress.className IngressClass that will be be used to implement the Ingress
+  className: ""
+  ## @param ingress.annotations [object] Additional annotations for the Ingress resource.
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+
+  ## @param ingress.hosts [object] An array with ingress host objects, under which service should be reachable
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  ## @param ingress.tls [array] An array of TLS configurations
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
