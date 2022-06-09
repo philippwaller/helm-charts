@@ -15,7 +15,7 @@ spec:
       protocol: {{ .Values.service.protocol }}
       name: {{ .Values.service.name }}
   {{- range .Values.service.extraPorts }}
-    - name: {{ .name }}-tcp
+    - name: {{ .name }}
       port: {{ .port }}
       protocol: {{ .protocol }}
       targetPort: {{ .targetPort }}
