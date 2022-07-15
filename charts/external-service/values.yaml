@@ -29,6 +29,12 @@ service:
   type: ClusterIP
   ## @param service.externalName Target for ExternalName type service
   externalName: ""
+  ## @param service.extraPorts [array] An array of extra port configurations
+  extraPorts: []
+  #  - port: 25
+  #    targetPort: 25
+  #    name: smtp
+  #    protocol: TCP
 
 
 ## @section Ingress Configuration

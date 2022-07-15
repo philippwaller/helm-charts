@@ -14,3 +14,12 @@ spec:
       targetPort: {{ .Values.service.targetPort }}
       protocol: {{ .Values.service.protocol }}
       name: {{ .Values.service.name }}
+  {{- range .Values.service.extraPorts }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      protocol: {{ .protocol }}
+      targetPort: {{ .targetPort }}
+    {{- if .nodePort }}
+      nodePort: {{ .nodePort }}
+    {{- end }}
+  {{- end }}
