@@ -42,6 +42,7 @@ This chart deploys an Endpoint, Service and Ingress configuration on a [Kubernet
 | `service.port`         | Port of the internal Kubernetes service | `80`        |
 | `service.type`         | Service type                            | `ClusterIP` |
 | `service.externalName` | Target for ExternalName type service    | `""`        |
+| `service.extraPorts`   | An array of extra port configurations   | `[]`        |
 
 
 ### Ingress Configuration
