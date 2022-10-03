@@ -16,7 +16,7 @@ This charts deploys a HelmChartConfig to overwrite the default [Traefik](https:/
 
 ## Prerequisites
 
-- Kubernetes 1.16+
+- Kubernetes 1.22+
 - Helm 3.1+
 
 

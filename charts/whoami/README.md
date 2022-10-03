@@ -18,7 +18,7 @@ This chart bootstraps an [whoami](https://github.com/traefik/whoami) deployment 
 
 ## Prerequisites
 
-- Kubernetes 1.15+
+- Kubernetes 1.22+
 - Helm 3.1+
 
 

@@ -18,7 +18,7 @@ This chart bootstraps an [Helm Controller](https://github.com/k3s-io/helm-contro
 
 ## Prerequisites
 
-- Kubernetes 1.16+
+- Kubernetes 1.22+
 - Helm 3.1+
 
 
