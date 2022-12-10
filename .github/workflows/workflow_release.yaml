@@ -6,6 +6,12 @@ on:
   workflow_dispatch:
 
 jobs:
+  rate-limit:
+    name: Rate Limit
+    uses: ./.github/workflows/job_rate-limit.yaml
+    with:
+      limit: 10
   release:
     name: Release
+    needs: [rate-limit]
     uses: ./.github/workflows/job_release.yaml
