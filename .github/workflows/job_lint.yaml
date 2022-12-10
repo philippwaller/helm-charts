@@ -1,4 +1,4 @@
-name: "Job: Litting"
+name: "Job: Lintting"
 on:
   workflow_call:
     inputs:

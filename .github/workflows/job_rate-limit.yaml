@@ -1,4 +1,4 @@
-name: "Job: Release"
+name: "Job: Check Rate Limit"
 on:
   workflow_call:
     inputs:
