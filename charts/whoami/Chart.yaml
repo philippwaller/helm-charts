@@ -2,8 +2,8 @@ apiVersion: v2
 name: whoami
 description: Tiny Go webserver that prints os information and HTTP request to output
 type: application
-version: 1.0.2
-kubeVersion: ^1.22.0
+version: 1.0.3
+kubeVersion: ^1.23.0
 appVersion: v1.8.0
 sources:
   - https://github.com/philippwaller/helm-charts/tree/main/charts/whoami
