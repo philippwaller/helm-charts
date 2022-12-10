@@ -17,7 +17,7 @@ This chart deploys an Endpoint, Service and Ingress configuration on a [Kubernet
 
 ## Prerequisites
 
-- Kubernetes 1.22+
+- Kubernetes 1.23+
 - Helm 3.1+
 
 

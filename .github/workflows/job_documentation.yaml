@@ -48,7 +48,7 @@ jobs:
             -r ${{ matrix.chart.path }}/README.md
 
       - name: Delete readme-generator-for-helm repo
-        run: rm -rf ./readme-generator-for-helm
+        run: rm -rf ./readme-generator-for-helm ./node_modules ./package-lock.json ./package.json
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v8

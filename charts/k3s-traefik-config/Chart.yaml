@@ -2,8 +2,8 @@ apiVersion: v2
 name: k3s-traefik-config
 description: This Helm Chart allows to persistently overwrite the default Traefik configuration of a K3s cluster.
 type: application
-version: 1.0.4
-kubeVersion: ^1.22.0
+version: 1.0.5
+kubeVersion: ^1.23.0
 appVersion: v1.0.1
 sources:
   - https://github.com/philippwaller/helm-charts/tree/main/charts/k3s-traefik-config
