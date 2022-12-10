@@ -4,8 +4,10 @@ on:
 
 jobs:
   rate-limit:
-    name: Rate Limit Check
+    name: Rate Limit
     uses: ./.github/workflows/job_rate-limit.yaml
+    with:
+      limit: 300
   pre-commit:
     name: Content Check
     needs: [rate-limit]
