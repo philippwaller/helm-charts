@@ -2,7 +2,7 @@ apiVersion: v2
 name: helm-controller
 description: A simple way to manage helm charts with Custom Resource Definitions in k8s.
 type: application
-version: 1.0.3
+version: 1.0.4
 appVersion: v0.11.9
 kubeVersion: ^1.22.0
 sources:

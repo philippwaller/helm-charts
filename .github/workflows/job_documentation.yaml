@@ -21,25 +21,34 @@ jobs:
         chart: ${{ fromJson(inputs.configuration).charts }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
       - name: Set up node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.17.1
+          node-version: 16
+
+      - name: Checkout readme-generator-for-helm repo
+        uses: actions/checkout@v3
+        with:
+          repository: bitnami-labs/readme-generator-for-helm
+          path: readme-generator-for-helm
 
       - name: Install
-        run: npm install -g readme-generator-for-helm
+        run: npm install ./readme-generator-for-helm
 
       - name: Update documentation files
         run: |
-          readme-generator \
+          $(npm bin)/readme-generator \
             -v ${{ matrix.chart.path }}/values.yaml \
             -r ${{ matrix.chart.path }}/README.md
+
+      - name: Delete readme-generator-for-helm repo
+        run: rm -rf ./readme-generator-for-helm
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v8

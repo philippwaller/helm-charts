@@ -5,8 +5,14 @@ on:
   workflow_dispatch:
 
 jobs:
+  rate-limit:
+    name: Rate Limit
+    uses: ./.github/workflows/job_rate-limit.yaml
+    with:
+      limit: 10
   update-k8s-versions:
     name: Update K8s Versions
+    needs: [rate-limit]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

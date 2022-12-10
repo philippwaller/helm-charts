@@ -2,7 +2,7 @@ apiVersion: v2
 name: inadyn
 description: A Helm chart for inadyn, a small and simple Dynamic DNS client with HTTPS support
 type: application
-version: 1.0.3
+version: 1.0.4
 kubeVersion: ^1.22.0
 appVersion: v2.9.1
 sources:
