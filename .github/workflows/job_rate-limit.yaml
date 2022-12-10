@@ -1,0 +1,29 @@
+name: "Job: Release"
+on:
+  workflow_call:
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  rate-limit:
+    name: Rate Limit
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⌛ rate
+        shell: pwsh
+        run: |
+          # add random sleep since we run on fixed schedule
+          sleep (get-random -max 60)
+
+          # get currently authenticated user rate limit info
+          $rate = gh api rate_limit | convertfrom-json | select -expandproperty rate
+
+          # if we don't have at least 300 requests left, wait until reset
+          if ($rate.remaining -lt 300) {
+              $wait = ($rate.reset - (Get-Date (Get-Date).ToUniversalTime() -UFormat %s))
+              echo "Rate limit remaining is $($rate.remaining), waiting for $($wait) seconds to reset"
+              sleep $wait
+              $rate = gh api rate_limit | convertfrom-json | select -expandproperty rate
+              echo "Rate limit has reset to $($rate.remaining) requests"
+          }

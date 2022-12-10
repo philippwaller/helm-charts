@@ -1,15 +1,14 @@
 name: "Flow: Integration Test"
 on:
   pull_request:
-  workflow_dispatch:
-  push:
-    branches-ignore:
-      - main
-      - repository
 
 jobs:
+  rate-limit:
+    name: Rate Limit Check
+    uses: ./.github/workflows/job_rate-limit.yaml
   pre-commit:
     name: Content Check
+    needs: [rate-limit]
     uses: ./.github/workflows/job_pre-commit.yaml
   preparation:
     name: Preparation
