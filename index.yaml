@@ -310,6 +310,29 @@ entries:
     version: 1.0.0
   inadyn:
   - apiVersion: v2
+    appVersion: v2.10.0
+    created: "2022-12-10T19:43:39.138728947Z"
+    description: A Helm chart for inadyn, a small and simple Dynamic DNS client with
+      HTTPS support
+    digest: 810d290b5e5e00921d74ada2cf0851b103a8ba72686f88aa4f39771e0dbdca74
+    keywords:
+    - inadyn
+    - dyndns
+    - ddns
+    - dns
+    kubeVersion: ^1.23.0
+    maintainers:
+    - name: philippwaller
+      url: https://git.philippwaller.com
+    name: inadyn
+    sources:
+    - https://github.com/philippwaller/helm-charts/tree/main/charts/inadyn
+    - https://github.com/troglobit/inadyn
+    type: application
+    urls:
+    - https://github.com/philippwaller/helm-charts/releases/download/inadyn-1.1.0/inadyn-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
     appVersion: v2.9.1
     created: "2022-12-10T17:07:24.974260617Z"
     description: A Helm chart for inadyn, a small and simple Dynamic DNS client with
@@ -653,4 +676,4 @@ entries:
     urls:
     - https://github.com/philippwaller/helm-charts/releases/download/whoami-1.0.0/whoami-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-10T17:07:25.229922035Z"
+generated: "2022-12-10T19:43:39.138848548Z"
