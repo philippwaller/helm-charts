@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ciChanged=false
+ciChanged=true
 changedCharts=$(jq -c . <stubs/changed-charts.json)
 
 ./generate-config.sh "$ciChanged" "$changedCharts"

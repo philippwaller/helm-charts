@@ -7,7 +7,5 @@
   "charts/inadyn/Chart.yaml",
   "charts/inadyn/README.md",
   "charts/inadyn/ci.yaml",
-  "charts/k3s-traefik-config/.helmignore",
-  "charts/k3s-traefik-config/Chart.yaml",
   "charts/k3s-traefik-config/ci.yaml"
 ]
