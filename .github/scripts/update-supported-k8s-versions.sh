@@ -31,8 +31,8 @@ function getSchemaVersionAsStr() {
 }
 
 function getVersions() {
-	nodeVersions=($1)
-	schemaVersions=($2)
+	IFS=" " read -r -a nodeVersions <<<"$1"
+	IFS=" " read -r -a schemaVersions <<<"$2"
 	intersections=()
 	for nodeVersion in "${nodeVersions[@]}"; do
 		for schemaVersion in "${schemaVersions[@]}"; do
@@ -50,7 +50,7 @@ function readMinK8sVersion() {
 }
 
 function filterUnsupportedVersions() {
-	while read version; do
+	while read -r version; do
 		if [ "$version" != "$(echo -e "$version\n$minK8sVersion" | sort -V | head -n1)" ] || [ "$version" == "$minK8sVersion" ]; then
 			echo "$version"
 		fi
@@ -64,9 +64,11 @@ function log() {
 	fi
 }
 
-nodeVersions=($(getNodeVersionsAsStr))
+nodeVersions=()
+while IFS='' read -r line; do nodeVersions+=("$line"); done < <(getNodeVersionsAsStr)
 log "available node versions [${#nodeVersions[@]}]:\n${nodeVersions[*]}"
-schemaVersions=($(getSchemaVersionAsStr))
+schemaVersions=()
+while IFS='' read -r line; do schemaVersions+=("$line"); done < <(getSchemaVersionAsStr)
 log "\navailable schema versions [${#schemaVersions[@]}]:\n${schemaVersions[*]}"
 availableVersions=($(getVersions "${nodeVersions[*]}" "${schemaVersions[*]}"))
 log "\navailable versions (intersection)[${#availableVersions[@]}]:\n${availableVersions[*]}\n\n"
@@ -76,7 +78,9 @@ for dir in "$projectRootPath"/charts/*/; do
 	dirname=$(basename "$(dirname "$dir")")/$(basename "$dir")
 	printf "update versions for chart %s\n" "$dirname"
 	minK8sVersion=$(readMinK8sVersion "$dir")
-	supportedVersions=($(printf '%s\n' "${availableVersions[@]}" | filterUnsupportedVersions))
+	supportedVersionsStr=$(printf '%s\n' "${availableVersions[@]}" | filterUnsupportedVersions)
+	supportedVersions=()
+	while IFS='' read -r line; do supportedVersions+=("$line"); done < <(echo "$supportedVersionsStr")
 	log "supported k8s versions (>= $minK8sVersion) [${#supportedVersions[@]}]:\n${supportedVersions[*]}\n"
 	yq -i "$outputYamlPath = (\"${supportedVersions[*]}\" | split(\" \"))" "$dir/$outputFile"
 done

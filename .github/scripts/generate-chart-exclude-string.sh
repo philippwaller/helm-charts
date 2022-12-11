@@ -7,7 +7,7 @@ chartDir="$projectRootPath/charts"
 excludePaths=$(
 	find "$chartDir" -type d -mindepth 1 -maxdepth 1 |
 		sed "s~$projectRootPath/~~" |
-		egrep -v "^$chartPath$" |
+		grep -Ev "^$chartPath$" |
 		awk -F "/" '{ print $2 }' |
 		tr '\n' ',' |
 		sed 's/,$//g'
