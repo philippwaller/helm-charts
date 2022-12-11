@@ -1,4 +1,4 @@
-name: "Job: Litting"
+name: "Job: Lintting"
 on:
   workflow_call:
     inputs:
@@ -38,7 +38,7 @@ jobs:
         id: excluded-charts
         run: |
           exclude=$(./.github/scripts/generate-chart-exclude-string.sh "${{ matrix.chart.path }}")
-          echo "::set-output name=excluded-charts::$exclude"
+          echo "excluded-charts=$exclude" >> $GITHUB_OUTPUT
           echo $exclude
 
       - name: Check if version bump is required
