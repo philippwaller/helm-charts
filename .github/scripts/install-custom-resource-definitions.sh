@@ -5,5 +5,5 @@ json="$2"
 
 crds=($(echo "$json" | jq -r -c ".charts[$index].settings.kubernetes.customResourceDefinitions[]"))
 for crd in "${crds[@]}"; do
-  kubectl create -f "$crd"
+	kubectl create -f "$crd"
 done

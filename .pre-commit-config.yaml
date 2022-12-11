@@ -26,3 +26,9 @@ repos:
     hooks:
       - id: yamllint
         args: [--config-file, .github/yamllint.yaml, --format, github, --strict]
+
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 3.0.0
+    hooks:
+      - id: shellcheck
+      - id: shfmt
