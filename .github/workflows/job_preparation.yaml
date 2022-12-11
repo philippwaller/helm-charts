@@ -40,5 +40,5 @@ jobs:
             '${{ steps.change-detection.outputs.ci }}' \
             '${{ steps.change-detection.outputs.charts_files }}' \
           )
-          echo "::set-output name=config::$output"
+          echo "config=$output" >> $GITHUB_OUTPUT
           echo $output
