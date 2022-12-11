@@ -25,7 +25,8 @@ jobs:
           list-files: json
           filters: |
             charts:
-              - 'charts/**'
+              - 'charts/*/*/**'
+              - 'charts/*/!(ci.yaml|README.md)'
             ci:
               - '.github/**'
 

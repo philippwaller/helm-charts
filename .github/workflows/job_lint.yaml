@@ -42,6 +42,7 @@ jobs:
           echo $exclude
 
       - name: Check if version bump is required
+        if: matrix.chart.versionBump == true
         run: |
           ct lint \
             --config .github/ct.yaml \
