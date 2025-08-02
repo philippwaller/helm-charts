@@ -65,11 +65,12 @@ This chart bootstraps an [Inadyn](https://github.com/troglobit/inadyn) deploymen
 
 ### Service Account
 
-| Name                         | Description                                           | Value  |
-| ---------------------------- | ----------------------------------------------------- | ------ |
-| `serviceAccount.create`      | Specifies whether a service account should be created | `true` |
-| `serviceAccount.annotations` | Annotations to add to the service account             | `{}`   |
-| `serviceAccount.name`        | The name of the service account to use.               | `""`   |
+| Name                         | Description                                                   | Value  |
+| ---------------------------- | ------------------------------------------------------------- | ------ |
+| `serviceAccount.create`      | Specifies whether a service account should be created         | `true` |
+| `serviceAccount.mount`       | Specifies whether the service account token should be mounted | `true` |
+| `serviceAccount.annotations` | Annotations to add to the service account                     | `{}`   |
+| `serviceAccount.name`        | The name of the service account to use.                       | `""`   |
 
 
 ## Support this project
