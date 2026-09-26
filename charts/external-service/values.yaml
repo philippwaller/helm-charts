@@ -29,6 +29,8 @@ service:
   type: ClusterIP
   ## @param service.externalName Target for ExternalName type service
   externalName: ""
+  ## @param service.annotations [object] Additional annotations for the Service resource.
+  annotations: {}
   ## @param service.extraPorts [array] An array of extra port configurations
   extraPorts: []
   #  - port: 25
