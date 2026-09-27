@@ -3,6 +3,26 @@ entries:
   external-service:
   - apiVersion: v2
     appVersion: v1.0.6
+    created: "2026-09-27T19:21:06.13406641Z"
+    description: This Helm Chart allows services that operate outside the Kubernetes
+      cluster to be accessible via the ingress controller.
+    digest: 48827fb1fd97070e8c4e2582b2051656a8f27da4a4a99f0f4b4714d4175d635b
+    keywords:
+    - service
+    - external-service
+    kubeVersion: ^1.23.0
+    maintainers:
+    - name: philippwaller
+      url: https://git.philippwaller.com
+    name: external-service
+    sources:
+    - https://github.com/philippwaller/helm-charts/tree/main/charts/external-service
+    type: application
+    urls:
+    - https://github.com/philippwaller/helm-charts/releases/download/external-service-1.0.9/external-service-1.0.9.tgz
+    version: 1.0.9
+  - apiVersion: v2
+    appVersion: v1.0.6
     created: "2022-12-10T17:07:24.733328896Z"
     description: This Helm Chart allows services that operate outside the Kubernetes
       cluster to be accessible via the ingress controller.
@@ -676,4 +696,4 @@ entries:
     urls:
     - https://github.com/philippwaller/helm-charts/releases/download/whoami-1.0.0/whoami-1.0.0.tgz
     version: 1.0.0
-generated: "2022-12-10T19:43:39.138848548Z"
+generated: "2026-09-27T19:21:07.222257155Z"
